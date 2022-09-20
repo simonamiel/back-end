@@ -1,13 +1,16 @@
+/*Creation of the middleware that will verify that the user is connected and transmit the connection information to the different methods*/
+
 const jwt = require('jsonwebtoken');
 
 module.exports = (req, res, next) => {
     try {
-        const token = req.headers.autorization.split(' ')[1];
+        const token = req.headers.authorization.split(' ')[1];
         const decodedToken = jwt.verify(token, 'RANDOM_token_SECRET');
         const userId = decodedToken.userId;
         req.auth = {
             userId: userId
         };
+        next();
     } catch(error) {
         res.status(401).json({error});
     }

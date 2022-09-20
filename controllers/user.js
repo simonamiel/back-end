@@ -3,7 +3,7 @@
 const bcrypt = require('bcrypt');
 const jwt = require ('jsonwebtoken');
 
-const User = require('../models/Users');
+const User = require('../models/User');
 
 /*============================================*/
 /*Signup controller for user*/
@@ -29,7 +29,7 @@ exports.signup = (req, res, next) => {
 exports.login = (req, res, next) => {
     User.findOne({email: req.body.email})
     .then(user => {
-        if(user === null) {
+        if(!user) {
             res.status(401).json({message: 'Paire Identifiant/Mot de passe incorrecte'});
         } else {
             bcrypt.compare(req.body.password, user.password)

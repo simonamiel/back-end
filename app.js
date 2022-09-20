@@ -1,8 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const path = require('path');
 
+/*import of app's routes*/
+const sauceRoutes = require ('./routes/sauce');
 const userRoutes = require ('./routes/user');
 
+/*Connection to MongoDb*/
 mongoose.connect('mongodb+srv://simon_amiel:P23BEyUITy6l0nkC@cluster0.rbj7mvk.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -11,8 +15,9 @@ mongoose.connect('mongodb+srv://simon_amiel:P23BEyUITy6l0nkC@cluster0.rbj7mvk.mo
 
 const app = express();
 
+app.use(express.json());
 
-
+/*CORS and autorization*/
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -20,8 +25,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.json());
-
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);
+
 
 module.exports = app;
