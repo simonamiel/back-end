@@ -25,6 +25,7 @@ app.use((req, res, next) => {
   next();
 });
 
+/*Management of main routes of API*/
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/sauces', sauceRoutes);
 app.use('/api/auth', userRoutes);

@@ -1,5 +1,4 @@
 /*Configuration of sauces routes*/
-
 const express = require('express');
 const router = express.Router();
 
@@ -20,5 +19,7 @@ router.get('/:id', auth, sauceCtrl.getOneSauce);
 router.put('/:id', auth, multer, sauceCtrl.modifySauce);
 /*Delete data into Database*/
 router.delete('/:id', auth, sauceCtrl.deleteSauce);
+/*Management Likes/Dislikes into Database*/
+router.post('/:id/like', auth, sauceCtrl.likeSauce);
 
 module.exports = router;
