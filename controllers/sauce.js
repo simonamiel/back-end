@@ -13,10 +13,6 @@ exports.createSauce = (req, res, next) => {
    const sauce = new Sauce({
        ...sauceObject,
        userId: req.auth.userId,
-       likes: 0,
-       dislikes: 0,
-       usersLiked: [],
-       usersDisliked: [],
        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
    });
  
@@ -87,6 +83,7 @@ exports.getAllSauces = (req, res, next) => {
 /*==============================================*/
 /*Management of Likes/dislikes for sauces*/
 /*==============================================*/
+
 exports.likeSauce = (req, res, next) => {
     Sauce.findOne({_id: req.params.id})
     .then(sauce => {

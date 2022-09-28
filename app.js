@@ -1,5 +1,8 @@
+/*Import of express package*/
 const express = require('express');
+/*Import of mongoose package*/
 const mongoose = require('mongoose');
+/*Import to define the paths*/
 const path = require('path');
 
 /*import of app's routes*/
